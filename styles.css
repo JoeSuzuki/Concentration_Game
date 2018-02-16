@@ -1,3 +1,11 @@
+#game {
+  width: 400px;
+  height: 400px;
+  display: flex; // flex container
+  flex-direction: row; // left to right
+  flex-wrap: wrap;
+  border: 1px solid red;
+}
 .game-square { // Window
   box-sizing: border-box;
   border: 1px solid #000;
