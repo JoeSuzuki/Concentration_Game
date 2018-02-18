@@ -1,5 +1,6 @@
 var resetButton = document.getElementById("reset-button");
 var colors = [];
+var firstSquare = null;
 
 for (var i = 0; i < 10; i++) {
   colors.push('square-' + i);
@@ -23,6 +24,7 @@ GameSquare.prototype.handleEvent = function(e) {
       }
       this.isOpen = true;
       this.el.classList.add('flip');
+      checkGame(this);
   }
 }
 
@@ -41,6 +43,27 @@ GameSquare.prototype.setColor = function(color) {
   this.el.children[0].children[1].classList.remove(this.color);
   this.color = color;
   this.el.children[0].children[1].classList.add(color);
+}
+
+function checkGame(gameSquare) {
+  if (firstSquare === null) {
+    firstSquare = gameSquare;
+    return
+  }
+
+  if (firstSquare.color === gameSquare.color) {
+    firstSquare.lock();
+    gameSquare.lock();
+  } else {
+    var a = firstSquare;
+    var b = gameSquare;
+    setTimeout(function() {
+      a.reset();
+      b.reset();
+      firstSquare = null;
+    }, 400);
+  }
+  firstSquare = null;
 }
 
 // returns a number from 0 to n - 1.
