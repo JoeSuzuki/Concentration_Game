@@ -19,6 +19,7 @@
   height: 200%;
   position: absolute;
   top: 0;
+  transition: 400ms; 
 }
 .game-square > div > div { // Default & color
   height: 50%;

@@ -2,7 +2,7 @@ var resetButton = document.getElementById("reset-button");
 var colors = [];
 
 for (var i = 0; i < 10; i++) {
- colors.push('square-' + i);
+  colors.push('square-' + i);
 }
 
 // el : The reference to a DOM element (div.game-square)
@@ -12,10 +12,8 @@ function GameSquare(el, color) {
   this.isOpen = false;
   this.isLocked = false;
   this.el.addEventListener("click", this, false);
-  this.setColor(color); 
 }
 
-// methods called when an event occurs
 GameSquare.prototype.handleEvent = function(e) {
   switch (e.type) {
     case "click":
@@ -38,11 +36,44 @@ GameSquare.prototype.lock = function() {
   this.isOpen = true;
 }
 
-// this.el : is the game square div.
-// this.el.children[0] : the game square's child, the "drawer" div.
-// this.el.children[0].children[1] : the second child of the drawer div, this should be the color square.
 GameSquare.prototype.setColor = function(color) {
   this.el.children[0].children[1].classList.remove(this.color);
   this.color = color;
   this.el.children[0].children[1].classList.add(color);
 }
+
+function GameSquare(el, color) {
+  this.el = el;
+  this.isOpen = false;
+  this.isLocked = false;
+  this.el.addEventListener("click", this, false);
+  this.setColor(color); // <-- Set the color!
+}
+
+// returns a number from 0 to n - 1.
+function random(n) {
+  return Math.floor(Math.random() * n);
+}
+
+function getSomeColors() {
+  var colorscopy = colors.slice();
+  var randomColors = [];
+  for (var i = 0; i < 8; i++) {
+    var index = random(colorscopy.length);
+    randomColors.push(colorscopy.splice(index, 1)[0]);
+  }
+  return randomColors.concat(randomColors.slice());
+}
+
+function setupGame() {
+  var array = document.getElementsByClassName("game-square");
+  var randomColors = getSomeColors();             // Get an array of 8 random color pairs
+  for (var i = 0; i < array.length; i++) {
+    var index = random(randomColors.length);      // Get a random index
+    var color = randomColors.splice(index, 1)[0]; // Get the color at that index
+    // Use that color to initialize the GameSquare
+    gameSquares.push(new GameSquare(array[i], color));
+  }
+}
+
+setupGame();
