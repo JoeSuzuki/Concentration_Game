@@ -12,6 +12,7 @@ function GameSquare(el, color) {
   this.isOpen = false;
   this.isLocked = false;
   this.el.addEventListener("click", this, false);
+  this.setColor(color); // <-- Set the color!
 }
 
 GameSquare.prototype.handleEvent = function(e) {
@@ -40,14 +41,6 @@ GameSquare.prototype.setColor = function(color) {
   this.el.children[0].children[1].classList.remove(this.color);
   this.color = color;
   this.el.children[0].children[1].classList.add(color);
-}
-
-function GameSquare(el, color) {
-  this.el = el;
-  this.isOpen = false;
-  this.isLocked = false;
-  this.el.addEventListener("click", this, false);
-  this.setColor(color); // <-- Set the color!
 }
 
 // returns a number from 0 to n - 1.
